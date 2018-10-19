@@ -101,10 +101,10 @@
 </table>
         
 		<!-- ここに書き込まれたデータ表示-->
-        <BR>↓  var_dump表示　↓<br>
-                <?= var_dump($_POST[id]) ?><BR><BR>
-                <?= var_dump($_POST[name]) ?><BR><BR>
-                <?= var_dump($_POST[contents]) ?><BR><BR>
+        ↓  var_dump表示　↓<br>
+                <?= var_dump($_POST[id]) ?>
+                <?= var_dump($_POST[name]) ?>
+                <?= var_dump($_POST[contents]) ?>
                 <?= var_dump($_val[contents]) ?>
         
         <!--  ↓のちほど削除します 
@@ -117,6 +117,6 @@
                             .$val['contents'].' '                                .'<br>';
                     }
             ?>
-        ここまで削除する-->
+        -->
     </body>
 </html>

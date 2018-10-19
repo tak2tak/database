@@ -5,7 +5,7 @@
     $db_user='db_user';
     $db_pass='db_pass';
 
-    $id = $_POST[id];
+    $id = $_post[id];
 
     //データベース接続
     $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
@@ -21,10 +21,12 @@
 
 
 				if($name !=='' && $contents !=='') {
-					$query = "UPDATE dbtable SET name = 
-                    .{$name}.', contents = '
-                    .{$contents}.' WHERE id = '
-                    .{$id}";
+					$query = "Update dbtable set name="
+                    ."'".mysqli_real_escape_string($link, $name)"',"
+                    ."contents="
+                    ."'". mysqli_real_escape_string($link, $contents)."' "
+                    ."where id="
+                    .$id;
 
 					$res = mysqli_query($link, $query);
 					
@@ -39,7 +41,13 @@
 			}
 
             
-			$query ="SELECT id, name, contents FROM dbtable";            
+			$query = "Update dbtable set name="
+                    ."'".mysqli_real_escape_string($link, $name)"',"
+                    ."contents="
+                    ."'". mysqli_real_escape_string($link, $contents)."' "
+                    ."where id="
+                    .$id;
+            
 			$res = mysqli_query($link, $query);
 			$data = array();
 			while ($row=mysqli_fetch_assoc($res)) {
@@ -65,20 +73,14 @@
             <div class="row1">
                 
                 <form method="post" action="database_update.php">
-                    名前<input type="text" name="name" value="<?= $_POST[name]?>">
-                    コメント<textarea name="contents" rows="4" cols="20"><?= $_POST[contents]?></textarea>
-                    <input type="hidden" name="id" value="<?= $id ?>">
+                        名前<input type="text" name="name" value="">
+                        コメント<textarea name="contents" rows="4" cols="20"></textarea>
                     <input type="submit" name="update" value="編集">
                 </form>
-                
-                <br>
-                <a href="database_index.php">一覧へ戻る</a><br>
-                <br>
-                <?= var_dump($_POST[id]) ?><br><br>
-                <?= var_dump($_POST[name]) ?><br><br>
-                <?= var_dump($_POST[contents]) ?><br><br>
-                <?= var_dump($id) ?>
-
+                <?= var_dump($_POST[id]) ?>
+                <?= var_dump($_POST[name]) ?>
+                <?= var_dump($_POST[contents]) ?>
+                <?= var_dump($_val[contents]) ?>
                 
 
 
