@@ -5,7 +5,6 @@
     $db_user='db_user';
     $db_pass='db_pass';
 
-    $id = $_POST[id];
 
     //データベース接続
     $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
@@ -15,17 +14,21 @@
 			$err_msg = '';
             
 
-			if(isset($_POST[update]) === true) {
-				$name = $_post[name];
-				$contents = $_post[contents];
-
+			if(isset($_POST['update']) === true) {
+				$name = $_POST['name'];
+				$contents = $_POST['contents'];
+                $id = $_POST['id'];
+                
 
 				if($name !=='' && $contents !=='') {
-					$query = "UPDATE dbtable SET name = 
-                    .{$name}.', contents = '
-                    .{$contents}.' WHERE id = '
-                    .{$id}";
-
+                    $query = "UPDATE dbtable SET name ="
+                        ."'".mysqli_real_escape_string($link, $name)."',"
+                        ."contents = "
+                        ."'".mysqli_real_escape_string($link, $contents)."'"
+                        ." WHERE id = "
+                        .mysqli_real_escape_string($link, $id);
+                    
+                    
 					$res = mysqli_query($link, $query);
 					
 					if($res !== false) {
@@ -38,13 +41,7 @@
 				}
 			}
 
-            
-			$query ="SELECT id, name, contents FROM dbtable";            
-			$res = mysqli_query($link, $query);
-			$data = array();
-			while ($row=mysqli_fetch_assoc($res)) {
-				array_push($data, $row);
-			}
+           
 
 			arsort($data);
 		} else {
@@ -65,22 +62,22 @@
             <div class="row1">
                 
                 <form method="post" action="database_update.php">
-                    名前<input type="text" name="name" value="<?= $_POST[name]?>">
-                    コメント<textarea name="contents" rows="4" cols="20"><?= $_POST[contents]?></textarea>
-                    <input type="hidden" name="id" value="<?= $id ?>">
+                    ID<input type="text" name="id" rows="1" cols="2" value="<?= $_POST['id']?>">
+                    名前<input type="text" name="name" value="<?= $_POST['name']?>"><br>
+                    コメント<textarea name="contents" rows="2" cols="30"><?= $_POST['contents']?></textarea>
                     <input type="submit" name="update" value="編集">
                 </form>
                 
                 <br>
                 <a href="database_index.php">一覧へ戻る</a><br>
                 <br>
-                <?= var_dump($_POST[id]) ?><br><br>
-                <?= var_dump($_POST[name]) ?><br><br>
-                <?= var_dump($_POST[contents]) ?><br><br>
-                <?= var_dump($id) ?>
-
+                <br>
+                <?= var_dump($_POST['id']) ?><br><br>
+                <?= var_dump($_POST['name']) ?><br><br>
+                <?= var_dump($_POST['contents']) ?><br><br>
+                <?= var_dump(mysqli_real_escape_string($link, $id)) ?><br><br>
+                <?= var_dump(mysqli_real_escape_string($link, $name)) ?>
                 
-
 
             </div>
         </div>
