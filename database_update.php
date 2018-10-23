@@ -32,9 +32,9 @@
 					$res = mysqli_query($link, $query);
 					
 					if($res !== false) {
-						$msg = "書き込みに成功しました";
+						$msg = "編集に成功しました。一覧へ戻ってください。";
 					} else {
-						$err_msg = "書き込みに失敗しました";
+						$err_msg = "編集に失敗しました";
 					}
 				} else {
 					$err_msg = "名前とコメントを記入してください";
@@ -55,6 +55,7 @@
 <html lang="jp"> 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
     <body>
         <div class="container">
@@ -67,7 +68,8 @@
                     コメント<textarea name="contents" rows="2" cols="30"><?= $_POST['contents']?></textarea>
                     <input type="submit" name="update" value="編集">
                 </form>
-                
+                <?= $msg ?>
+                <?= $error_msg ?>
                 <br>
                 <a href="database_index.php">一覧へ戻る</a><br>
                 <br>
